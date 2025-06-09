@@ -35,7 +35,7 @@ docker exec "$CTN" bash -lc "\
   set -e; \
   mkdir -p /opt \
 "
-docker cp ~/Scripts/nvim.appimage "${CTN}":/opt/nvim.appimage
+docker cp ~/Scripts/nvim_devctn/nvim.appimage "${CTN}":/opt/nvim.appimage
 
 docker exec "$CTN" bash -lc "\
   [ \$(stat -c%s /opt/nvim.appimage) -gt 10000000 ] || exit 1; \
@@ -46,7 +46,7 @@ docker exec "$CTN" bash -lc "\
 "
 
 # Ставим Pyright
-docker cp ~/Scripts/pyright_wheels "$CTN":/tmp/pyright_wheels
+docker cp ~/Scripts/nvim_devctn/pyright_wheels "$CTN":/tmp/pyright_wheels
 docker exec "$CTN" bash -lc "\
   pip install --no-index --find-links=/tmp/pyright_wheels 'pyright[nodejs]'
 "
