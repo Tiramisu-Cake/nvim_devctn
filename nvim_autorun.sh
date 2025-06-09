@@ -65,7 +65,7 @@ SERVICE=$(
 
   # 5. Делаем ./devctn.sh с полученным container_name
   if [[ -x "$HOME/Scripts/nvim_devctn/devctn.sh" ]]; then
-    exec ~/Scripts/devctn.sh "$CONTAINER_NAME"
+    exec ~/Scripts/nvim_devctn/devctn.sh "$CONTAINER_NAME"
   else
     echo "devctn.sh не найден или не имеет права на исполнение."
     echo "Запускаю системный nvim."
