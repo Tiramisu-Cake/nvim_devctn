@@ -19,9 +19,18 @@ WD=$(docker inspect --format='{{.Config.WorkingDir}}' "$CTN")
 ensure_git() {
     docker exec "$CTN" mkdir -p /root/.ssh
     docker cp ~/.gitconfig "$CTN":/root/.gitconfig
-    docker cp ~/.ssh/id_github "$CTN":/root/.ssh/id_github
+    docker cp ~/.ssh/id_cakegithub "$CTN":/root/.ssh/id_github
     docker exec -it "$CTN" git config --global --add safe.directory "$WD" 
+    docker exec -i "$CTN" bash <<'EOF'
+    cat > ~/.ssh/config <<EOC
+    Host github.com
+    IdentityFile ~/.ssh/id_github
+    IdentitiesOnly yes
+EOC
+EOF
 }
+
+
 
 if docker exec "$CTN" test -f "$FLAG"; then
   echo "Nvim was installed before, running nvim..."
