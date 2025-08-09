@@ -59,14 +59,13 @@ start_nvim() {
     ensure_autochown_config
     IDG=$(id -g)
     IDU=$(id -u)
-    # rm nvim.sock
     docker exec -d \
         -e HOST_UID="$IDU" \
         -e HOST_GID="$IDG" \
         "$CTN" nvim --headless --listen "$WD"/nvim.sock
     docker exec "$CTN" chown "$IDU":"$IDG" ./nvim.sock
     docker exec "$CTN" chmod 660 ./nvim.sock
-    neovide --server=./nvim.sock
+    docker exec -it "$CTN" nvim
     exit 0
 }
 
